@@ -10,24 +10,23 @@ export const newsData = [
       "Students can now apply for internships abroad through our global partner institutions.",
   },
   {
-    title: "International Research Collaboration Launched",
+    title: "Student Exchange Quota Increased for Fall Semester",
     description:
-      "A new cross-university research project has been initiated to tackle climate change through sustainable innovation.",
+      "Partner universities in Europe and Asia have agreed to double the student exchange capacity for the upcoming academic year.",
   },
   {
-    title: "Global Internship Program Opened",
+    title: "New MoU Signed with Top Tech Institutes",
     description:
-      "Students can now apply for internships abroad through our global partner institutions.",
+      "A memorandum of understanding was signed today to facilitate joint research and development in artificial intelligence.",
   },
   {
-    title: "International Research Collaboration Launched",
+    title: "International Scholarship Winners Announced",
     description:
-      "A new cross-university research project has been initiated to tackle climate change through sustainable innovation.",
+      "Congratulations to the outstanding students who received the prestigious global leadership scholarship this year.",
   },
   {
-    title: "Global Internship Program Opened",
+    title: "Annual Global Education Summit Hosted on Campus",
     description:
-      "Students can now apply for internships abroad through our global partner institutions.",
+      "Over 500 delegates from 30 countries gathered to discuss the future of digital learning and cross-border education.",
   },
-  // Tambahkan data lain sesuai kebutuhan
 ];

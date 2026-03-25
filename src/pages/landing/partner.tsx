@@ -28,8 +28,6 @@ export default function Partner() {
     fetchPartners();
   }, []);
 
-  console.log("partners type:", typeof partners, partners);
-
   return (
     <div className="container bg-white py-12 lg:space-y-16" id="partners">
       <div className="space-y-8 text-center">

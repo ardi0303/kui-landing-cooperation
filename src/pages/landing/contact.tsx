@@ -7,7 +7,7 @@ export default function Contact() {
           If you have any questions or need further information, feel free to
           reach out to us.
         </p>
-        <form className="space-y-4">
+        <form className="space-y-4 lg:px-28">
           <input
             type="text"
             placeholder="Your Name"
@@ -23,12 +23,13 @@ export default function Contact() {
             className="w-full rounded-lg border border-gray-300 p-2"
             rows={4}
           ></textarea>
-          <button
+          <a
+            href="#"
             type="submit"
             className="bg-primary-600 hover:bg-primary-700 rounded-lg px-4 py-2 text-white"
           >
             Send Message
-          </button>
+          </a>
         </form>
       </div>
     </div>
