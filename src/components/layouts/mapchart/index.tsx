@@ -11,7 +11,6 @@ interface Country {
   moa: number;
   ia: number;
 }
-// Data mentah (bisa diganti dari API atau props)
 
 const MapChart = () => {
   const chartRef = useRef<HTMLDivElement>(null);
@@ -21,7 +20,7 @@ const MapChart = () => {
     const fetchPartners = async () => {
       try {
         const data = await getCountries();
-        setCountries(data); // pastikan API return array partner
+        setCountries(data);
       } catch (error) {
         console.error("Failed to fetch partners", error);
       }
@@ -43,7 +42,7 @@ const MapChart = () => {
         wheelX: "none",
         wheelY: "none",
         projection: am5map.geoNaturalEarth1(),
-      })
+      }),
     );
 
     mapChart.series.push(
@@ -51,11 +50,11 @@ const MapChart = () => {
         geoJSON: am5geodata_continentsLow as never,
         exclude: ["antarctica"],
         fill: am5.color(0xbbbbbb),
-      })
+      }),
     );
 
     const pointSeries = mapChart.series.push(
-      am5map.MapPointSeries.new(root, {})
+      am5map.MapPointSeries.new(root, {}),
     );
     const colorSet = am5.ColorSet.new(root, { step: 2 });
 
@@ -65,7 +64,7 @@ const MapChart = () => {
         value: number;
       };
 
-      const container = am5.Container.new(root, {});
+      const mainContainer = am5.Container.new(root, {});
       const color = colorSet.next();
       const chartWidth = root.dom.clientWidth;
 
@@ -77,54 +76,63 @@ const MapChart = () => {
       if (chartWidth > 1000) fontSize = 16;
       else if (chartWidth > 600) fontSize = 14;
 
-      container.children.push(
-        am5.Circle.new(root, {
-          radius,
-          fill: color,
-          dy: -radius * 3,
-        })
-      );
+      const pinCenterY = -radius * 3;
+      const circleBottomY = pinCenterY + radius;
 
-      container.children.push(
+      mainContainer.children.push(
         am5.Line.new(root, {
           stroke: color,
-          height: -40,
+          points: [
+            { x: 0, y: 0 },
+            { x: 0, y: circleBottomY },
+          ],
           strokeGradient: am5.LinearGradient.new(root, {
-            stops: [{ opacity: 1 }, { opacity: 1 }, { opacity: 0 }],
+            rotation: 90,
+            stops: [{ opacity: 1 }, { opacity: 1 }],
           }),
-        })
+        }),
       );
 
-      container.children.push(
+      const pinContainer = mainContainer.children.push(
+        am5.Container.new(root, {
+          y: pinCenterY,
+        }),
+      );
+
+      pinContainer.children.push(
+        am5.Circle.new(root, {
+          radius: radius,
+          fill: color,
+        }),
+      );
+
+      pinContainer.children.push(
         am5.Label.new(root, {
           text: `${value}`,
           fill: am5.color(0xffffff),
           fontWeight: "400",
-          fontSize,
+          fontSize: fontSize,
           centerX: am5.p50,
           centerY: am5.p50,
-          dy: -radius * 3,
-        })
+        }),
       );
 
-      container.children.push(
+      pinContainer.children.push(
         am5.Label.new(root, {
           text: title,
           fill: color,
           fontWeight: "500",
-          fontSize,
+          fontSize: fontSize,
           centerY: am5.p50,
-          dy: -radius * 3,
-          dx: radius,
-        })
+          x: radius + 8,
+        }),
       );
 
       return am5.Bullet.new(root, {
-        sprite: container,
+        sprite: mainContainer,
       });
     });
 
-    // Panggil generateCooperationMap
     const cooperationData = generateCooperationMap(countries);
 
     pointSeries.data.setAll(
@@ -132,7 +140,7 @@ const MapChart = () => {
         geometry: { type: "Point", coordinates: [d.longitude, d.latitude] },
         title: d.title,
         value: d.value,
-      }))
+      })),
     );
 
     return () => {

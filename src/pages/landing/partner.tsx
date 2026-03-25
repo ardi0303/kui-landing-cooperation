@@ -17,7 +17,7 @@ export default function Partner() {
     const fetchPartners = async () => {
       try {
         const data = await getPartners();
-        setPartners(data); // pastikan API return array partner
+        setPartners(data.data);
       } catch (error) {
         console.error("Failed to fetch partners", error);
       } finally {
@@ -27,6 +27,8 @@ export default function Partner() {
 
     fetchPartners();
   }, []);
+
+  console.log("partners type:", typeof partners, partners);
 
   return (
     <div className="container bg-white py-12 lg:space-y-16" id="partners">
